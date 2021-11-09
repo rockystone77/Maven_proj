@@ -1,0 +1,32 @@
+<html>
+    <title>Get all Netflix movies and TVshows</title>
+    <script>
+        function getNetflix() {
+            fetch('http://localhost:3001/netflix')
+                .then(response => response.json())
+                .then(data => {
+                    const responseField = document.getElementById('responseField');
+                    responseField.innerHTML = JSON.stringify(data);
+
+                    const outputField = document.getElementById('outputField');
+                    outputField.innerHTML = '';
+                    data.forEach(netflix => {
+                        outputField.innerHTML += getNetflixDisplayText(netflix);
+                    })
+                });
+        }
+
+        function getNetflixDisplayText(netflix) {
+            const displayText =
+                `<li>${netflix.title}, ${netflix.description}</li>`;
+            return displayText;
+        }
+    </script>
+    <h2 id="netflix_label">Get all Netflix</h2>
+    <button onclick="getNetflix()">Get Netflix</button>
+    <br>
+    <h2 id="netflix_label">Netflix:</h2>
+    <div id="outputField"></div>
+    <h2 id="response_label">Json Response:</h2>
+    <div id="responseField"></div>
+</html>
